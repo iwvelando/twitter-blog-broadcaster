@@ -1,0 +1,32 @@
+cnf = {
+	"twitter": {
+		"consumer_key" : "",
+		"consumer_secret" : "",
+		"access_token_key" : "",
+		"access_token_secret" : ""
+	},
+	"bitly" : {
+		"active" : False, # Toggle link shortening, recommended to use
+		"access_token" : ""
+	},
+	"params" : {
+		"efficient_hashtags" : False, # Causes hashtag matches in the article's title to be hashtagged, may appear spammy
+		"site" : "http://greplinux.com/",
+		"site_sitemap" : "sitemap.xml",
+		"site_subdirs_regex" : {
+			"blog" : "\/[0-9]{4}\/[0-9]{2}\/[0-9]{2}\/[a-zA-Z0-9\-]+\/",
+			"resources" : "\/[a-zA-Z\-]+\/"
+		},
+		"title_split_regex" : "(.*)\s\-\s\|grepLinux",
+		"whitelist_titles" : [
+			"Only Post the Article with This Title",
+			"Or This One"
+		],
+		"blacklist_titles" : [
+			"Never Post the Article with This Title"
+		],
+		"changed_titles" : {
+			"When This Title is Encountered" : "Use This Text in the Tweet"
+		}
+	}
+}
