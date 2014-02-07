@@ -11,9 +11,9 @@ from post_config import cnf
 
 # Fire up Twitter connection
 api = twitter.Api(	consumer_key = cnf['twitter']['consumer_key'],
-					consumer_secret = cnf['twitter']['consumer_secret'],
-					access_token_key = cnf['twitter']['access_token_key'],
-					access_token_secret = cnf['twitter']['access_token_secret'])
+			consumer_secret = cnf['twitter']['consumer_secret'],
+			access_token_key = cnf['twitter']['access_token_key'],
+			access_token_secret = cnf['twitter']['access_token_secret'])
 
 # Fire up bitly connection if specified
 if cnf['bitly']['active']:
@@ -23,8 +23,8 @@ if cnf['bitly']['active']:
 site = cnf['params']['site']
 if site[-1] != "/":
 	site += "/"
-rss_url = site + cnf['params']['site_sitemap']
-req = urllib2.Request(rss_url)
+sitemap_url = site + cnf['params']['site_sitemap']
+req = urllib2.Request(sitemap_url)
 response = urllib2.urlopen(req)
 html = response.read()
 entries = []
