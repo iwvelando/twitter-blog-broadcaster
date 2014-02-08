@@ -1,5 +1,11 @@
 #!/bin/bash
 
-/bin/sleep $(( $RANDOM % 1799 ))
+# Figure out what directory this script resides in
+thisDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+intervalSeconds=1799
 
-/usr/bin/env python $HOME/cron/post.py &> $HOME/cron/post.log
+# Wait a random time within the select interval
+/bin/sleep $(( $RANDOM % $intervalSeconds ))
+
+# Tweet
+/usr/bin/env python "$thisDir/post.py" &> "$thisDir/post.log"
