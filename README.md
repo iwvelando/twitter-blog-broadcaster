@@ -29,7 +29,7 @@ sudo pip install bitly_api python-twitter
 
 You will need to create an application with **read and write** access at:
 
-https://twitter.com/login?redirect\_after\_login=https%3A//apps.twitter.com/
+https://twitter.com/login?redirect_after_login=https%3A//apps.twitter.com/
 
 and the four credentials will be supplied in the config file.
 
@@ -37,7 +37,7 @@ and the four credentials will be supplied in the config file.
 
 To shorten the links you tweet via bit.ly (mainly so you can track clicks) you'll need a credential from:
 
-https://bitly.com/a/oauth\_apps
+https://bitly.com/a/oauth_apps
 
 which will be supplied in the config file.
 
