@@ -50,6 +50,9 @@ The *post\_config.py.example* file will need to be populated with certain inform
 * *twitter*: place the four API credentials here
 * *bitly*: if active is set to True, supply the API credential
 * *params*
+ * *prepend\_date*: When set to True, the page is searched for a tag like &lt;time datetime="2014-02-11T19:58:00-06:00"&gt; and parses the date out of it to be placed at the beginning of the tweet in a particular format.
+ * *date\_compact*: When set to True and *prepend\_date* is also True, the format will be (d)d/(m)m/yy, in other words leading zeros are removed.
+ * *date\_format*: If *date\_compact* is False and *prepend\_date* is True, the [strftime-compatible format](http://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior) specified here will be used for the date.
  * *efficient\_hashtags*: When set to True, if a keyword is found in the page title then it will be hashtagged (so it appears in the first part of the tweet before the URL rather than appended after). This makes room for more keyword hashtags after the URL but if the title is too populated with keywords the tweet may appear as obnoxious hashtag spam. Use with care.
  * *site*: the URL of the root level domain as it appears in the sitemap; if a trailing slash is omitted it will be added in the main script
  * *site\_sitemap*: specifies what to append to *site* to reach the sitemap to be parsed
