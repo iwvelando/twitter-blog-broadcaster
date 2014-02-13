@@ -36,7 +36,8 @@ nEntries = len(entries)
 while True:
 
 	# Select one of the entries at random, get its title, and redo this if it needs to be excluded
-	url = entries[random.randint(0,nEntries - 1)]
+	selection = random.randint(0,nEntries - 1)
+	url = entries[selection]
 
 	req = urllib2.Request(url)
 	response = urllib2.urlopen(req)
@@ -46,9 +47,14 @@ while True:
 	# Extract the title, compare it to the whitelist and blacklist, and use an alternative if specified
 	title = re.split(cnf['params']['title_split_regex'],soup.find("title").string)[1]
 
-	# Try again if the entry we grabbed was in the blacklist or not in the whitelist
+	# If the entry we grabbed was in the blacklist or not in the whitelist remove it and try again
 	if ( title in cnf['params']['blacklist_titles'] ) or ( cnf['params']['whitelist_titles'] and title not in cnf['params']['whitelist_titles'] ):
-		continue
+		entries.pop(selection)
+		nEntries -= 1
+		if nEntries == 0:
+			break
+		else:
+			continue
 
 	# If we want to alter the title for this tweet, check for a match
 	if title in cnf['params']['changed_titles']:
