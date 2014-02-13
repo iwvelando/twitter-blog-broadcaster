@@ -58,14 +58,14 @@ while True:
 	if cnf['bitly']['active']:
 		url = bitly.shorten(url)['url']
 
-	# If specified prepend the post's date to the tweet with a specified format
-	if cnf['params']['prepend_date']:
+	# If specified add the post's date to the tweet after the URL with a specified format
+	if cnf['params']['date_show']:
 		date = datetime.strptime(soup.find("time")['datetime'].split("T")[0],"%Y-%m-%d")
 		if cnf['params']['date_compact']:
 			date = "{0}/{1}/{2:02}".format(date.day,date.month,date.year % 100)
 		else:
 			date = date.strftime(cnf['params']['date_format'])
-		tweet = "{:s} {:s} {:s} |".format(date,title,url)
+		tweet = "{:s} {:s} {:s}".format(title,url,date)
 	else:
 		tweet = "{:s} {:s} |".format(title,url)
 
