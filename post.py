@@ -84,7 +84,7 @@ while True:
 			j += 1
 
 	# Prevents duplicate status error; selected 8 as the upper limit so as not to be too obnoxious and is sufficiently unique
-	append = " " + "".join(random.sample(uuid.uuid4().hex,min(8,139-len(tweet))))
+	append = " " + "".join(random.sample(uuid.uuid4().hex,min(8,138-len(tweet))))
 	tweet += append
 
 	status = api.PostUpdate(tweet)
