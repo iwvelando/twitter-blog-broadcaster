@@ -10,7 +10,7 @@ cnf = {
 		"access_token" : ""
 	},
 	"params" : {
-		"date_show": True,
+		"date_show": False,
 		"date_compact": True, # Formats date as (d)d/(m)m/yy - leading zeros removed
 		"date_format": "%Y-%m-%d", # Used only if date_compact is False, strftime-compatible string
 		"efficient_hashtags" : False, # Causes hashtag matches in the article's title to be hashtagged, may appear spammy
