@@ -11,10 +11,12 @@ from datetime import datetime
 from post_config import cnf
 
 # Fire up Twitter connection
-api = twitter.Api(	consumer_key = cnf['twitter']['consumer_key'],
-			consumer_secret = cnf['twitter']['consumer_secret'],
-			access_token_key = cnf['twitter']['access_token_key'],
-			access_token_secret = cnf['twitter']['access_token_secret'])
+api = twitter.Api(
+	consumer_key = cnf['twitter']['consumer_key'],
+	consumer_secret = cnf['twitter']['consumer_secret'],
+	access_token_key = cnf['twitter']['access_token_key'],
+	access_token_secret = cnf['twitter']['access_token_secret']
+	)
 
 # Fire up bitly connection if specified
 if cnf['bitly']['active']:
@@ -22,7 +24,7 @@ if cnf['bitly']['active']:
 
 # Parse the sitemap to get the entries to choose from; search both the blog and resources section
 site = cnf['params']['site']
-if site[-1] != "/":
+if (site[-1] != "/"):
 	site += "/"
 sitemap_url = site + cnf['params']['site_sitemap']
 req = urllib2.Request(sitemap_url)
@@ -48,16 +50,16 @@ while True:
 	title = re.split(cnf['params']['title_split_regex'],soup.find("title").string)[1]
 
 	# If the entry we grabbed was in the blacklist or not in the whitelist remove it and try again
-	if ( title in cnf['params']['blacklist_titles'] ) or ( cnf['params']['whitelist_titles'] and title not in cnf['params']['whitelist_titles'] ):
+	if ((title in cnf['params']['blacklist_titles']) or (cnf['params']['whitelist_titles'] and title not in cnf['params']['whitelist_titles'])):
 		entries.pop(selection)
 		nEntries -= 1
-		if nEntries == 0:
+		if (nEntries == 0):
 			break
 		else:
 			continue
 
 	# If we want to alter the title for this tweet, check for a match
-	if title in cnf['params']['changed_titles']:
+	if (title in cnf['params']['changed_titles']):
 		title = cnf['params']['changed_titles'][title]
 
 	# Grab the bitly url if specified and initialize the tweet
@@ -80,11 +82,11 @@ while True:
 	keywords = soup.find("meta",{"name":"keywords"})['content'].replace(" ","").split(",")
 
 	j = 0
-	while keywords and len(tweet)<=135 and j < len(keywords):
-		if cnf['params']['efficient_hashtags'] and  " {:s} ".format(keywords[j].lower()) in " {:s}".format(tweet.lower()) and len(tweet)+1 <= 135:
+	while (keywords and len(tweet)<=135 and j < len(keywords)):
+		if (cnf['params']['efficient_hashtags'] and  " {:s} ".format(keywords[j].lower()) in " {:s}".format(tweet.lower()) and len(tweet)+1 <= 135):
 			location = " {:s}".format(tweet.lower()).find(" {:s} ".format(keywords.pop(j).lower()))
 			tweet = tweet[:location] + "#" + tweet[location:]
-		elif len(tweet) + len(keywords[j]) + 2 <= 135:
+		elif (len(tweet) + len(keywords[j]) + 2 <= 135):
 			tweet += " #{:s}".format(keywords.pop(j))
 		else:
 			j += 1
