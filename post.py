@@ -5,6 +5,7 @@ import re
 import random
 import uuid
 from BeautifulSoup import BeautifulSoup
+from datetime import datetime
 
 # Set the config values in post_config.py
 from post_config import cnf
@@ -56,7 +57,17 @@ while True:
 	# Grab the bitly url if specified and initialize the tweet
 	if cnf['bitly']['active']:
 		url = bitly.shorten(url)['url']
-	tweet = "{:s} {:s} |".format(title,url)
+
+	# If specified prepend the post's date to the tweet with a specified format
+	if cnf['params']['prepend_date']:
+		date = datetime.strptime(soup.find("time")['datetime'].split("T")[0],"%Y-%m-%d")
+		if cnf['params']['date_compact']:
+			date = "{0}/{1}/{2:02}".format(date.day,date.month,date.year % 100)
+		else:
+			date = date.strftime(cnf['params']['date_format'])
+		tweet = "{:s} {:s} {:s} |".format(date,title,url)
+	else:
+		tweet = "{:s} {:s} |".format(title,url)
 
 	# Go through the meta keywords list and assume they're in descending order of importance
 	# If efficient_hashtags is set and the hashtag word is already in the tweet's body then prepend a #, otherwise append it to the end
@@ -73,7 +84,7 @@ while True:
 			j += 1
 
 	# Prevents duplicate status error
-	append = " " + "".join(random.sample(uuid.uuid4().hex,min(8,138-len(tweet))))
+	append = " " + "".join(random.sample(uuid.uuid4().hex,min(32,139-len(tweet))))
 	tweet += append
 
 	status = api.PostUpdate(tweet)
