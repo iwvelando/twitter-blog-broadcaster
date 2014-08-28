@@ -8,4 +8,4 @@ intervalSeconds=1799
 /bin/sleep $(( $RANDOM % $intervalSeconds ))
 
 # Tweet
-/usr/bin/env python "$thisDir/post.py" &> "$thisDir/post.log"
+/usr/bin/env python "$thisDir/post.py" &>> "$thisDir/post.log"
