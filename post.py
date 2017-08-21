@@ -82,19 +82,20 @@ while True:
 	keywords = soup.find("meta",{"name":"keywords"})['content'].replace(" ","").split(",")
 
 	j = 0
-	while (keywords and len(tweet)<=135 and j < len(keywords)):
-		if (cnf['params']['efficient_hashtags'] and  " {:s} ".format(keywords[j].lower()) in " {:s}".format(tweet.lower()) and len(tweet)+1 <= 135):
+	while (keywords and len(tweet)<=130 and j < len(keywords)):
+		if (cnf['params']['efficient_hashtags'] and  " {:s} ".format(keywords[j].lower()) in " {:s}".format(tweet.lower()) and len(tweet)+1 <= 130):
 			location = " {:s}".format(tweet.lower()).find(" {:s} ".format(keywords.pop(j).lower()))
 			tweet = tweet[:location] + "#" + tweet[location:]
-		elif (len(tweet) + len(keywords[j]) + 2 <= 135):
+		elif (len(tweet) + len(keywords[j]) + 2 <= 130):
 			tweet += " #{:s}".format(keywords.pop(j))
 		else:
 			j += 1
 
 	# Prevents duplicate status error; selected 8 as the upper limit so as not to be too obnoxious and is sufficiently unique
-	append = " " + "".join(random.sample(uuid.uuid4().hex,min(8,138-len(tweet))))
+	append = " " + "".join(random.sample(uuid.uuid4().hex,min(8,133-len(tweet))))
 	tweet += append
 
+        print(tweet)
 	status = api.PostUpdate(tweet)
 
 	break
